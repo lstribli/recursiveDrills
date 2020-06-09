@@ -87,7 +87,7 @@ function splitConcat(str, sep) {
     //character 
     //return str;
   }
-  return [str.slice(0, idx)].concat(splitConcat(str.slice(idx + sep.length), sep))
+  return [str.slice(0, idx)].concat(splitConcat(str.slice(idx + sep.length), sep));
 
   //****** all these are valid syntax as well
   //return (str.slice(0,idx) + (splitConcat(str.slice(idx + sep.length), sep)))
@@ -209,30 +209,270 @@ const mazeAll = function (labyrinth, position = 0, row, col, direction = 'S', pa
   position--;
 };
 
-function Anagrams(subject) {
-  //split string into an array
-  const subjectArray = subject.split('');
-  console.log('subjectarray:', subjectArray);
+// function Anagrams(subject) {
+//   //split string into an array
+//   const subjectArray = subject.split('');
+//   console.log('subjectarray:', subjectArray);
 
-  //map the array and assign each letter as a prefix
-  const prefixes = [];
-  subjectArray.map(char => prefixes.push(char));
-  console.log('prefixes:', prefixes);
+//   //map the array and assign each letter as a prefix
+//   const prefixes = [];
+//   subjectArray.map(char => prefixes.push(char));
+//   console.log('prefixes:', prefixes);
 
-  //for each prefix, create an array taking the rest of the letters.
+//   //for each prefix, create an array taking the rest of the letters.
 
-  //doesnt work
-  // const obj = {};
-  // prefixes.forEach(char => obj.keys.push(char));
-  // console.log(obj);
+//   //doesnt work:
+//   // const obj = {};
+//   // prefixes.forEach(char => obj.keys.push(char));
+//   // console.log(obj);
 
-  // separate the remaining indexes and randomize them
+//   // separate the remaining indexes and randomize them
 
 
-  //concat each randomized array and convert back into a string
+//   //concat each randomized array and convert back into a string
 
-  //log the anagrams for each prefix
+//   //log the anagrams for each prefix
+// }
+
+// const allAnagrams = Anagrams('east');
+// console.log('Anagrams:', allAnagrams);
+
+function anagrams(prefix, str) {
+  if (str.length <= 1) {
+    console.log(`The anagram is ${prefix}${str}`);
+  } else {
+    for (let i = 0; i < str.length; i++) {
+      let currentLetter = str.substring(i, i + 1);
+      let previousLetters = str.substring(0, i);
+      let afterLetters = str.substring(i + 1);
+      anagrams(prefix + currentLetter, previousLetters + afterLetters);
+    }
+  }
+}
+function printAnagram(word) {
+  //console.log(`The word for which we will find an anagram is ${word}`);
+  anagrams(' ', word);
+
 }
 
-const allAnagrams = Anagrams('east');
-console.log('Anagrams:', allAnagrams);
+// Exercise 11: Organization Chart
+// Write a recursive function that prints the following organization chart.
+// Your output should be as shown below with proper indentation to show the hierarchy.
+let organization = {
+  "Zuckerberg": {
+    "Schroepfer": {
+      "Bosworth": {
+        "Steve": {},
+        "Kyle": {},
+        "Andra": {}
+      },
+      "Zhao": {
+        "Richie": {},
+        "Sofia": {},
+        "Jen": {}
+      },
+      "Badros": {
+        "John": {},
+        "Mike": {},
+        "Pat": {}
+      },
+      "Parikh": {
+        "Zach": {},
+        "Ryan": {},
+        "Tes": {}
+      }
+    },
+    "Schrage": {
+      "VanDyck": {
+        "Sabrina": {},
+        "Michelle": {},
+        "Josh": {}
+      },
+      "Swain": {
+        "Blanch": {},
+        "Tom": {},
+        "Joe": {}
+      },
+      "Frankovsky": {
+        "Jasee": {},
+        "Brian": {},
+        "Margaret": {}
+      }
+    },
+    "Sandberg": {
+      "Goler": {
+        "Eddie": {},
+        "Julie": {},
+        "Annie": {}
+      },
+      "Hernandez": {
+        "Rowi": {},
+        "Inga": {},
+        "Morgan": {}
+      },
+      "Moissinac": {
+        "Amy": {},
+        "Chuck": {},
+        "Vinni": {}
+      },
+      "Kelley": {
+        "Eric": {},
+        "Ana": {},
+        "Wes": {}
+      }
+    }
+  }
+};
+
+function traverseA(data, depth = 0) {
+  let indent = " ".repeat(depth * 4);
+  Object.keys(data).forEach(key => {
+    console.log(indent + key);
+    traverseA(data[key], depth + 1)
+  });
+}
+//another version of the solution
+function traverseB(node, indent = 0) {
+  for (var key in node) {
+    console.log(" ".repeat(indent), key);
+    traverseB(node[key], indent + 4);
+  }
+}
+
+//Write a recursive function that prints out the binary representation of a given number.
+// input: 5
+//output: 101
+
+function binaryRep(input) {
+  if (input <= 0) {
+    return '';
+  }
+  let binary = Math.floor(input % 2);
+  return binaryRep(Math.floor(input / 2)) + binary
+
+}
+
+function main() {
+  let base = 10;
+  let exponent = 2;
+  let exponentNeg = -2;
+  let str = 'tauhida'
+  let triNum = 5;
+  let myString = '03/14/2019';
+  let seperator = '/';
+
+  let myMaze = [
+    [' ', ' ', ' ', '*', ' ', ' ', ' '],
+    ['*', '*', ' ', '*', ' ', '*', ' '],
+    [' ', ' ', ' ', ' ', ' ', ' ', ' '],
+    [' ', '*', '*', '*', '*', '*', ' '],
+    [' ', ' ', ' ', ' ', ' ', ' ', 'e']
+  ];
+  let mySmallMaze = [
+    [' ', ' ', ' '],
+    [' ', '*', ' '],
+    [' ', ' ', 'e']
+  ];
+  let path = [];
+  let word = 'east'
+
+  let organization = {
+    "Zuckerberg": {
+      "Schroepfer": {
+        "Bosworth": {
+          "Steve": {},
+          "Kyle": {},
+          "Andra": {}
+        },
+        "Zhao": {
+          "Richie": {},
+          "Sofia": {},
+          "Jen": {}
+        },
+        "Badros": {
+          "John": {},
+          "Mike": {},
+          "Pat": {}
+        },
+        "Parikh": {
+          "Zach": {},
+          "Ryan": {},
+          "Tes": {}
+        }
+      },
+      "Schrage": {
+        "VanDyck": {
+          "Sabrina": {},
+          "Michelle": {},
+          "Josh": {}
+        },
+        "Swain": {
+          "Blanch": {},
+          "Tom": {},
+          "Joe": {}
+        },
+        "Frankovsky": {
+          "Jasee": {},
+          "Brian": {},
+          "Margaret": {}
+        }
+      },
+      "Sandberg": {
+        "Goler": {
+          "Eddie": {},
+          "Julie": {},
+          "Annie": {}
+        },
+        "Hernandez": {
+          "Rowi": {},
+          "Inga": {},
+          "Morgan": {}
+        },
+        "Moissinac": {
+          "Amy": {},
+          "Chuck": {},
+          "Vinni": {}
+        },
+        "Kelley": {
+          "Eric": {},
+          "Ana": {},
+          "Wes": {}
+        }
+      }
+    }
+  };
+  let num = 25;
+
+  let fibSeq = 7;
+  let arr = [];
+
+  let factNum = 4;
+
+  // countSheep(3);
+  // console.log(powerCalculatorRec(base, exponent));
+  // console.log(powerCalculatorRec(base, exponentNeg));
+  // console.log(reverseString(str));
+  // console.log(triangle(triNum))
+
+  // console.log(split(myString, seperator))
+
+  // for (let i = 1; i <= fibSeq; i++) {
+  //   arr.push(fibonacci(i))
+  // }
+  // console.log(arr);
+
+
+  // console.log(factorial(factNum))
+
+  mazeRunner(myMaze, 0, 0, 0, 'S', path);
+  mazeAll(myMaze, 0, 0, 0, 'S', path);
+
+  printAnagram(word);
+
+  traverseA(organization);
+
+  console.log(binaryRep(num))
+
+}
+
+main();
